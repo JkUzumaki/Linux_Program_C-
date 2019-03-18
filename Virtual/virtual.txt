@@ -1,0 +1,37 @@
+In a typical vtable-based implementation of virtual polymorphism, there will be:
+
+>	one vtable per class, containing the virtual function pointers and other metadata for that class;
+>	one vptr per object, pointing to the vtable for that object's dynamic class type.
+
+PROGRAM:
+	class B
+	{
+	  public:
+
+	  virtual Void Hello()
+	  {
+	    cout<<"Hello Base";
+	  }
+	};
+
+	class D: public B    
+	{
+	  public:
+
+	  virtual void Hello()
+	  {
+	    cout<<"Hello Derived";
+	  }
+	};
+
+	int main(int argc, char* argv[])
+	{
+	  D *d1 = new D();
+	  D *d2 = new D();
+	  D *d3 = new D();
+
+	  return 0;
+	}
+
+OUTPUT:
+	So here there will be two vtables (for B and D) and three vptrs (in *d1, *d2 and *d3). Unless the compiler notices that you're not using the objects an eliminates them altogether.
